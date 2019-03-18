@@ -18,7 +18,8 @@ type result struct {
 	err error
 }
 
-func (c *Command) HandlerTops(w http.ResponseWriter, req *http.Request) {
+func HandlerTops(w http.ResponseWriter, req *http.Request) {
+	var c Command
 	c.com = "top"
 	c.args = []string{"-b", "-n", "1"}
 	c.w = w
