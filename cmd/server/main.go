@@ -7,6 +7,6 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/top", tops.Command{})
+	http.HandleFunc("/tops", tops.HandlerTops)
 	log.Fatal(http.ListenAndServe("localhost:8000", nil))
 }
