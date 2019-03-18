@@ -94,7 +94,7 @@ func printProcs(procs []*ProcInfo, res http.ResponseWriter) {
 	const formatBody = "%d\t%.2f\t%.2f\t%s\n"
 	w := tabwriter.NewWriter(res, 0, 8, 2, ' ', 0)
 	hostname, _ := os.Hostname()
-	fmt.Fprintf(w, formatHeader, hostname)
+	fmt.Fprintf(res, "Hostname [%s]", hostname)
 	fmt.Fprintf(w, formatHeader, "PID", "CPU", "Memory", "Command")
 	fmt.Fprintf(w, formatHeader, "-----", "------", "-----", "----")
 	for ix := range procs {
