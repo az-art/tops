@@ -16,7 +16,6 @@ func main() {
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/tops", tops.HandlerTops)
-	log.Println("Starting Server. Listening on port 8000")
 
 	srv := &http.Server{
 		Handler:      RequestLogger(mux),
@@ -26,7 +25,7 @@ func main() {
 	}
 
 	go func() {
-		log.Println("Starting Server")
+		log.Println("Starting Server. Listening on port 8000")
 		if err := srv.ListenAndServe(); err != nil {
 			log.Fatal(err)
 		}
