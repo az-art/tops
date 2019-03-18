@@ -13,8 +13,8 @@ ENV PORT=8004
 COPY --from=builder /build/cmd/server/main /app/
 
 HEALTHCHECK --interval=15s --timeout=3s --start-period=1m \
-  CMD curl -s -k -f "http://localhost:${PORT}/tops" || exit 1
+  CMD curl -s -k -f "http://localhost:$PORT/tops" || exit 1
 
 WORKDIR /app
-EXPOSE ${PORT}
-CMD ["./main", "--port", "${PORT}"]
+EXPOSE $PORT
+CMD ["./main", "--port", "$PORT"]
