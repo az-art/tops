@@ -1,0 +1,7 @@
+test-automation-parent.iml
+target/
+test-output/
+.idea/
+.settings/
+.classpath
+.project
