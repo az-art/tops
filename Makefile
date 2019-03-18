@@ -25,6 +25,7 @@ test:
 push: login tag_latest
 	${INFO} "Publishing image... $(IMAGE_NAME):$(VERSION)"
 	@docker push $(IMAGE_NAME):$(VERSION)
+	@docker push $(IMAGE_NAME):latest
 	${INFO} "Publish complete"
 
 tag_latest:
