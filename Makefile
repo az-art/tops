@@ -1,7 +1,4 @@
 # Project variables
-PROJECT ?= library
-CURRENT_DIR ?= $(shell basename `pwd`)
-REPO ?= azzart
 IMAGE_NAME ?= azzart/tops
 VERSION ?= "$(shell date +%Y%m%d).$(shell git rev-parse --short HEAD)"
 
@@ -16,11 +13,6 @@ all: build test push
 build:
 	${INFO} "Building image... $(IMAGE_NAME):$(VERSION)"
 	@ docker build -t $(IMAGE_NAME):$(VERSION) --no-cache .
-
-test:
-	${INFO} "Testing image... $(IMAGE_NAME):$(VERSION)"
-	${CHECK_IMAGE} "$(IMAGE_NAME):$(VERSION)"
-	${INFO} "Image OK"
 
 push: login tag_latest
 	${INFO} "Publishing image... $(IMAGE_NAME):$(VERSION)"
@@ -43,7 +35,6 @@ help:
 	${INFO} "-----------------------------------------------------------------------"
 	${INFO} "   > build - To build $(CURRENT_DIR) image."
 	${INFO} "   > push - To push $(CURRENT_DIR) image."
-	${INFO} "   > clean - To cleanup images."
 	${INFO} "   > all - To execute all steps."
 	${INFO} "   > help - To see this help."
 	${INFO} "-----------------------------------------------------------------------"
@@ -58,11 +49,3 @@ INFO := @bash -c '\
   printf $(YELLOW); \
   echo "=> $$1"; \
   printf $(NC)' SOME_VALUE
-
-CHECK_IMAGE := @bash -c '\
-  if ! docker inspect "$$1"; then\
-  printf $(RED); \
-  echo "=> $$1 does not exist!"; \
-  printf $(NC); \
-  exit 1; \
-  fi' SOME_VALUE
