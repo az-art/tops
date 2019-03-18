@@ -1,7 +1,8 @@
 # Project variables
 PROJECT ?= library
 CURRENT_DIR ?= $(shell basename `pwd`)
-IMAGE_NAME ?= CURRENT_DIR
+REPO ?= azzart
+IMAGE_NAME ?= $DOCKER_LOGIN/$(CURRENT_DIR)
 VERSION ?= "$(shell date +%Y%m%d).$(shell git rev-parse --short HEAD)"
 
 .PHONY: all build push help
