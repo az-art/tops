@@ -72,7 +72,6 @@ func HandlerTops(res http.ResponseWriter, req *http.Request) {
 	wg.Wait()
 
 	printProcs(procs, res)
-
 	/*
 		b, err := json.Marshal(procs)
 		if err != nil {
@@ -91,7 +90,7 @@ func handleError(res http.ResponseWriter, err error) {
 func printProcs(procs []*ProcInfo, res http.ResponseWriter) {
 	res.WriteHeader(http.StatusOK)
 	const format = "%v\t%v\t%v\t%s\n"
-	w := tabwriter.NewWriter(res, 0, 0, 1, ' ', 0)
+	w := tabwriter.NewWriter(res, 0, 8, 2, ' ', 0)
 	fmt.Fprintf(w, format, "PID", "CPU", "Memory", "Command")
 	fmt.Fprintf(w, format, "-----", "------", "-----", "----")
 	for ix := range procs {
@@ -99,7 +98,7 @@ func printProcs(procs []*ProcInfo, res http.ResponseWriter) {
 		if proc == nil {
 			continue
 		}
-		fmt.Fprintf(w, format, proc.PID, proc.CPUPercent, proc.MemoryPercent, proc.Command, proc)
+		fmt.Fprintf(w, format, proc.PID, proc.CPUPercent, proc.MemoryPercent, proc.Command)
 	}
 	w.Flush()
 }
