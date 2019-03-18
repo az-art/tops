@@ -31,5 +31,6 @@ func main() {
 	log.SetOutput(os.Stdout)
 	mux := http.NewServeMux()
 	mux.HandleFunc("/tops", tops.HandlerTops)
+	log.Printf("Starting server on port 8000\n")
 	log.Fatal(http.ListenAndServe("localhost:8000", RequestLogger(mux)))
 }
