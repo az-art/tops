@@ -29,7 +29,7 @@ push: login
 
 login:
 	${INFO} "Logging in to DockerHub..."
-	@ echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
+	@ echo ${DOCKER_PWD} | docker login -u ${DOCKER_LOGIN} --password-stdin
 	${INFO} "Logged in to DockerHub"
 
 help:
