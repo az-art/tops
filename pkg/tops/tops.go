@@ -91,7 +91,7 @@ func handleError(res http.ResponseWriter, err error) {
 func printProcs(procs []*ProcInfo, res http.ResponseWriter) {
 	res.WriteHeader(http.StatusOK)
 	const format = "%v\t%v\t%v\t%s\n"
-	w := tabwriter.NewWriter(res, 0, 8, 2, ' ', 0)
+	w := tabwriter.NewWriter(res, 0, 0, 1, ' ', 0)
 	fmt.Fprintf(w, format, "PID", "CPU", "Memory", "Command")
 	fmt.Fprintf(w, format, "-----", "------", "-----", "----")
 	for ix := range procs {
