@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"flag"
 	"github.com/az-art/tops/pkg/tops"
 	"log"
 	"net/http"
@@ -11,7 +12,10 @@ import (
 	"time"
 )
 
+var port = flag.String("port", "8000", "listener port")
+
 func main() {
+	flag.Parse()
 	log.SetOutput(os.Stdout)
 
 	mux := http.NewServeMux()
@@ -19,13 +23,13 @@ func main() {
 
 	srv := &http.Server{
 		Handler:      RequestLogger(mux),
-		Addr:         ":8000",
+		Addr:         ":" + *port,
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,
 	}
 
 	go func() {
-		log.Println("Starting Server. Listening on port 8000")
+		log.Println("Starting Server. Listening on port " + *port)
 		if err := srv.ListenAndServe(); err != nil {
 			log.Fatal(err)
 		}
