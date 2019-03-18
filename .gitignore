@@ -4,4 +4,4 @@ test-output/
 .idea/
 .settings/
 .classpath
-.project
+.projectgit push
