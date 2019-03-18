@@ -5,6 +5,7 @@ import (
 	"github.com/shirou/gopsutil/process"
 	"log"
 	"net/http"
+	"os"
 	"sync"
 	"text/tabwriter"
 	"time"
@@ -92,6 +93,7 @@ func printProcs(procs []*ProcInfo, res http.ResponseWriter) {
 	const formatHeader = "%v\t%v\t%v\t%s\n"
 	const formatBody = "%d\t%.2f\t%.2f\t%s\n"
 	w := tabwriter.NewWriter(res, 0, 8, 2, ' ', 0)
+	fmt.Fprintf(w, formatHeader, os.Hostname())
 	fmt.Fprintf(w, formatHeader, "PID", "CPU", "Memory", "Command")
 	fmt.Fprintf(w, formatHeader, "-----", "------", "-----", "----")
 	for ix := range procs {
