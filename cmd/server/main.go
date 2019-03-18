@@ -39,7 +39,8 @@ func main() {
 	defer logFile.Close()
 
 	// direct all log messages to webrequests.log
-	log.SetOutput(logFile)
+	//log.SetOutput(logFile)
+	log.SetOutput(os.Stdout)
 	mux := http.NewServeMux()
 	mux.HandleFunc("/tops", tops.HandlerTops)
 	//http.HandleFunc("/tops", tops.HandlerTops)
