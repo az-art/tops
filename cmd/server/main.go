@@ -43,5 +43,5 @@ func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/tops", tops.HandlerTops)
 	//http.HandleFunc("/tops", tops.HandlerTops)
-	log.Fatal(http.ListenAndServe("localhost:8000", nil))
+	log.Fatal(http.ListenAndServe("localhost:8000", RequestLogger(mux)))
 }
