@@ -2,45 +2,41 @@
 PROJECT ?= library
 CURRENT_DIR ?= $(shell basename `pwd`)
 IMAGE_NAME ?= CURRENT_DIR
-VERSION ?= latest
+VERSION ?= "$(shell date +%Y%m%d).$(shell git rev-parse --short HEAD)"
 
-.PHONY: all build publish help
+.PHONY: all build push help
 
 .DEFAULT_GOAL := default
 
 default: help ;
 
-all: build test publish clean
+all: build test push
 
 build:
 	${INFO} "Building image... $(IMAGE_NAME):$(VERSION)"
-	@ docker build -t $(IMAGE_NAME):$(VERSION) --no-cache $(ARGS) .
+	@ docker build -t $(IMAGE_NAME):$(VERSION) --no-cache .
 
 test:
 	${INFO} "Testing image... $(IMAGE_NAME):$(VERSION)"
 	${CHECK_IMAGE} "$(IMAGE_NAME):$(VERSION)"
 	${INFO} "Image OK"
 
-publish: login
+push: login
 	${INFO} "Publishing image... $(IMAGE_NAME):$(VERSION)"
 	@docker push $(IMAGE_NAME):$(VERSION)
 	${INFO} "Publish complete"
 
 login:
-	${INFO} "Logging in to Docker registry $(DOCKER_REGISTRY_HOST)..."
-	@ docker login $(DOCKER_REGISTRY_HOST) -u ${GF_REGISTRY_USER} -p ${GF_REGISTRY_PASS}
-	${INFO} "Logged in to Docker registry $(DOCKER_REGISTRY_HOST)"
-
-clean:
-	${INFO} "Cleaning up images..."
-	@docker images --filter=reference='$(IMAGE_NAME)' -q | xargs -r docker rmi -f
+	${INFO} "Logging in to DockerHub..."
+	@ echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
+	${INFO} "Logged in to DockerHub"
 
 help:
 	${INFO} "-----------------------------------------------------------------------"
 	${INFO} "                      Available commands                              -"
 	${INFO} "-----------------------------------------------------------------------"
 	${INFO} "   > build - To build $(CURRENT_DIR) image."
-	${INFO} "   > publish - To publish $(CURRENT_DIR) image."
+	${INFO} "   > push - To push $(CURRENT_DIR) image."
 	${INFO} "   > clean - To cleanup images."
 	${INFO} "   > all - To execute all steps."
 	${INFO} "   > help - To see this help."
