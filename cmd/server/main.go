@@ -25,7 +25,14 @@ func main() {
 		WriteTimeout: 10 * time.Second,
 	}
 
-	log.Fatal(srv.ListenAndServe())
+	go func() {
+		log.Println("Starting Server")
+		if err := srv.ListenAndServe(); err != nil {
+			log.Fatal(err)
+		}
+	}()
+
+	//log.Fatal(srv.ListenAndServe())
 	//log.Fatal(http.ListenAndServe("localhost:8000", RequestLogger(mux)))
 
 	waitForShutdown(srv)
