@@ -1,11 +1,11 @@
 package main
 
 import (
-	"github.com/az-art/tops/pkg/tops"
 	"log"
 	"net/http"
 	"os"
 	"time"
+	"tops/pkg/tops"
 )
 
 func RequestLogger(targetMux http.Handler) http.Handler {
@@ -40,7 +40,8 @@ func main() {
 
 	// direct all log messages to webrequests.log
 	log.SetOutput(logFile)
-
-	http.HandleFunc("/tops", tops.HandlerTops)
+	mux := http.NewServeMux()
+	mux.HandleFunc("/tops", tops.HandlerTops)
+	//http.HandleFunc("/tops", tops.HandlerTops)
 	log.Fatal(http.ListenAndServe("localhost:8000", nil))
 }
