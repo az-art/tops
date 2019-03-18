@@ -22,10 +22,14 @@ test:
 	${CHECK_IMAGE} "$(IMAGE_NAME):$(VERSION)"
 	${INFO} "Image OK"
 
-push: login
+push: login tag_latest
 	${INFO} "Publishing image... $(IMAGE_NAME):$(VERSION)"
 	@docker push $(IMAGE_NAME):$(VERSION)
 	${INFO} "Publish complete"
+
+tag_latest:
+	${INFO} "Tagging image... $(IMAGE_NAME):$(VERSION) as latest"
+	@docker tag $(IMAGE_NAME):$(VERSION) $(IMAGE_NAME):latest
 
 login:
 	${INFO} "Logging in to DockerHub..."
