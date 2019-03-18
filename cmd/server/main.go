@@ -1,11 +1,11 @@
 package main
 
 import (
+	"github.com/az-art/tops/pkg/tops"
 	"log"
 	"net/http"
 	"os"
 	"time"
-	"tops/pkg/tops"
 )
 
 func RequestLogger(targetMux http.Handler) http.Handler {
