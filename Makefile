@@ -2,7 +2,7 @@
 PROJECT ?= library
 CURRENT_DIR ?= $(shell basename `pwd`)
 REPO ?= azzart
-IMAGE_NAME ?= ${DOCKER_LOGIN}/tops
+IMAGE_NAME ?= azzart/tops
 VERSION ?= "$(shell date +%Y%m%d).$(shell git rev-parse --short HEAD)"
 
 .PHONY: all build push help
